@@ -16,7 +16,7 @@
 </template>
 
 <script setup lang="ts">
-    import { ref } from 'vue'
+    import { ref, onMounted } from 'vue'
     import GiphyAPI from './services/giphy.ts'
 
     const giphy = new GiphyAPI()
@@ -28,6 +28,10 @@
     const searchByQuery = () =>{
         giphy.fetchSearch(endpoint.value, searchInput.value)
     }
+
+    onMounted(async() =>{
+        await giphy.fetchOnMounted()
+    })
 </script>
 
 <style scoped>

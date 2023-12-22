@@ -11,4 +11,10 @@ export default class GiphyAPI {
         console.log(json)
         this.searched.value = json
     }
+
+    async fetchOnMounted(){
+        const response = await fetch('https://api.giphy.com/v1/gifs/trending?limit=20&api_key='+API_KEY)
+        const json = await response.json()
+        this.searched.value = json
+    }
 }
