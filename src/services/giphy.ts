@@ -8,14 +8,12 @@ export default class GiphyAPI {
     async fetchSearch(endpoint: string, query: string){
         const response = await fetch(`https://api.giphy.com/v1/${endpoint}/search?q=${query}&limit=20&api_key=${API_KEY}`)
         const json = await response.json()
-        console.log(json)
-        this.searched.value = json
+        this.searched.value = json.data
     }
 
-    async fetchOnMounted(page: number   ){
-        const response = await fetch(`https://api.giphy.com/v1/gifs/trending?&offset=${(page-1)*20}&limit=20&api_key=${API_KEY}`)
+    async fetchOnMounted(){
+        const response = await fetch(`https://api.giphy.com/v1/gifs/trending?&limit=20&api_key=${API_KEY}`)
         const json = await response.json()
-        console.log(json)
-        this.searched.value = [...this.searched.value, ...json.data];
+        this.searched.value = json.data;
     }
 }
