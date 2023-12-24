@@ -11,9 +11,9 @@ export default class GiphyAPI {
         this.searched.value = json.data
     }
 
-    async fetchOnMounted(){
-        const response = await fetch(`https://api.giphy.com/v1/gifs/trending?&limit=20&api_key=${API_KEY}`)
+    async fetchMoreData(page: number){
+        const response = await fetch(`https://api.giphy.com/v1/gifs/trending?limit=20&offset=${(page-1)*20}&api_key=${API_KEY}`)
         const json = await response.json()
-        this.searched.value = json.data;
+        this.searched.value = [...this.searched.value, ...json.data];
     }
 }

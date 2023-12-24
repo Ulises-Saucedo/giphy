@@ -18,20 +18,19 @@
 <script setup lang="ts">
     import { ref } from 'vue'
     import { useInfiniteScroll } from '@vueuse/core';
-    import GiphyAPI from './services/giphy.ts'
+    import GiphyAPI from './providers/giphy.ts'
 
     const giphy = new GiphyAPI()
 
     const results = giphy.searched
     const searchInput = ref('')
     const endpoint = ref('gifs')
-    const currentPage = ref(0)
+    const currentPage = ref(1)
     const el = ref<HTMLElement | null>(null)
 
     const searchByQuery = () =>{
         giphy.fetchSearch(endpoint.value, searchInput.value)
     }
-
 
     useInfiniteScroll(
         el,
@@ -42,8 +41,8 @@
             const mustRenderMoreElements = totalHeightOfElement === 0 ||
                 scrollPosition > (totalHeightOfElement - estimateDistanceToRenderMoreElements);
             if (mustRenderMoreElements) {
-              currentPage.value++
-              await giphy.fetchMoreData(currentPage.value)
+                currentPage.value++
+                await giphy.fetchMoreData(currentPage.value)
             }
         }
     )
