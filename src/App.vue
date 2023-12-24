@@ -35,9 +35,15 @@
     useInfiniteScroll(
         el,
         async () => {
-            currentPage.value++
-            await giphy.fetchOnMounted(currentPage.value)
-        },
-        { distance: 50 }
+            const scrollPosition = window.scrollY;
+            const totalHeightOfElement = el.value?.offsetHeight || 0;
+            const estimateDistanceToRenderMoreElements= 900;
+            const mustRenderMoreElements = totalHeightOfElement === 0 ||
+                scrollPosition > (totalHeightOfElement - estimateDistanceToRenderMoreElements);
+            if (mustRenderMoreElements) {
+              currentPage.value++
+              await giphy.fetchOnMounted(currentPage.value)
+            }
+        }
     )
 </script>
