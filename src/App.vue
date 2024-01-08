@@ -9,8 +9,7 @@
     </section>
     <main class="grid md:grid-cols-4 sm:grid-cols-2 xs-grid-cols-1 max-w-5xl mx-auto gap-4 my-6 min-h-full overflow-y-auto" ref="el">
         <div v-for="e in results" :key="e.id" class="shadow rounded-sm overflow-hidden">
-            <img :src="e.images.downsized_medium.url" :alt="e.title">
-            <p class="text-center my-2">{{ e.title }}</p>
+            <img :src="e.images.downsized_medium.url" :alt="e.title" class="w-full h-full">
         </div>
     </main>
 </template>
